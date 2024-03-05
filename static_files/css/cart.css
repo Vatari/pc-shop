@@ -1,0 +1,21 @@
+.buy-button {
+    font-size: 1.1rem;
+    width: 180px;
+
+}
+
+.user-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: gainsboro;
+    transition: color 0.3s;
+}
+
+.user-link span:first-child {
+    margin-right: 5px;
+}
+
+.user-link:hover {
+    color: orange; /* Change this to your desired hover color */
+}
