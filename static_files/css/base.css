@@ -1,0 +1,36 @@
+.dropdown-divider {
+    margin: 0.5rem 0;
+}
+
+.form-control {
+    border-radius: 2rem;
+}
+
+.btn-outline-warning {
+    border-radius: 2rem;
+}
+
+.navbar-divider {
+    border-top: 1px solid grey;
+    margin: 0;
+}
+
+.navbar-nav > .nav-item > .nav-link:hover {
+    color: orange;
+}
+
+body {
+    font-family: Helvetica, serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Helvetica, serif;
+}
+
+p, span, a {
+    font-family: Helvetica, serif;
+}
+
+.navbar-brand, .nav-link {
+    font-family: Helvetica, serif;
+}
