@@ -1,0 +1,31 @@
+.category-list {
+    text-align: center;
+    margin-top: 11px;
+}
+
+.category-list h1 {
+    font-size: 35px;
+    margin-bottom: 20px;
+
+}
+
+.list-group {
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 30px;
+    font-size: x-large;
+}
+
+.list-group-item {
+    text-align: center;
+}
+
+.list-group-item a {
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.list-group-item a:hover {
+    color: orange;
+}
