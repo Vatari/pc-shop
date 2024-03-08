@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% block title %}{{ category.capitalize }}{% endblock %}
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/category.css' %}">
+    {% if user.is_authenticated %}
+        {% if category == 'desktop_computers' %}
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                {% if desktop_computers_items|length == 0 %}
+                    <div class="col-12 text-center" style="margin-left: 37%; margin-top: 3%;">
+                        <h1>Все още няма обяви в тази категория</h1>
+                        <p>
+                            <a href="{% url 'category_list' %}" class="btn btn-warning explore-button">Разгледай други
+                                обяви</a>
+                        </p>
+                    </div>
+                {% else %}
+                    {% for item in desktop_computers_items %}
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <div class="card-img-container">
+                                    <img src="{{ item.image.url }}"
+                                         class="card-img-top"
+                                         alt="{{ item.name }}"
+                                         style="height: 180px">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ item.name }}</h5>
+                                    <p class="card-text item-price">{{ item.price }} лв.</p>
+                                    <a href="{% url 'user_view' item.user.id %}" class="user-link">
+                                        <span>Потребител:</span>
+                                        <span>{{ item.user }}</span>
+                                    </a>
+                                    <a href="{% url 'offer' item.id %}" class="btn btn-warning">Детайли</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endif %}
+        {% if category == 'laptops' %}
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                {% if laptops_items|length == 0 %}
+                    <div class="col-12 text-center" style="margin-left: 37%; margin-top: 3%;">
+                        <h1>Все още няма обяви в тази категория!</h1>
+                        <p>
+                            <a href="{% url 'category_list' %}" class="btn btn-warning explore-button">Разгледай други
+                                обяви</a>
+                        </p>
+                    </div>
+                {% else %}
+                    {% for item in laptops_items %}
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <div class="card-img-container">
+                                    <img src="{{ item.image.url }}"
+                                         class="card-img-top"
+                                         alt="{{ item.name }}"
+                                         style="height: 180px">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ item.name }}</h5>
+                                    <p class="card-text item-price">{{ item.price }} лв.</p>
+                                    <a href="{% url 'user_view' item.user.id %}" class="user-link">
+                                        <span>Потребител:</span>
+                                        <span>{{ item.user }}</span>
+                                    </a>
+                                    <a href="{% url 'offer' item.id %}" class="btn btn-warning">Детайли</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endif %}
+        {% if category == 'servers' %}
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                {% if servers_items|length == 0 %}
+                    <div class="col-12 text-center" style="margin-left: 37%; margin-top: 3%;">
+                        <h1>Все още няма обяви в тази категория!</h1>
+                        <p>
+                            <a href="{% url 'category_list' %}" class="btn btn-warning explore-button">Разгледай други
+                                обяви</a>
+                        </p>
+                    </div>
+                {% else %}
+                    {% for item in servers_items %}
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <div class="card-img-container">
+                                    <img src="{{ item.image.url }}"
+                                         class="card-img-top"
+                                         alt="{{ item.name }}"
+                                         style="height: 180px">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ item.name }}</h5>
+                                    <p class="card-text item-price">{{ item.price }} лв.</p>
+                                    <a href="{% url 'user_view' item.user.id %}" class="user-link">
+                                        <span>Потребител:</span>
+                                        <span>{{ item.user }}</span>
+                                    </a>
+                                    <a href="{% url 'offer' item.id %}" class="btn btn-warning">Детайли</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endif %}
+        {% if category == 'parts' %}
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                {% if parts_items|length == 0 %}
+                    <div class="col-12 text-center" style="margin-left: 37%; margin-top: 3%;">
+                        <h1>Все още няма обяви в тази категория!</h1>
+                        <p>
+                            <a href="{% url 'category_list' %}" class="btn btn-warning explore-button">Разгледай други
+                                обяви</a>
+                        </p>
+                    </div>
+                {% else %}
+                    {% for item in parts_items %}
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <div class="card-img-container">
+                                    <img src="{{ item.image.url }}"
+                                         class="card-img-top"
+                                         alt="{{ item.name }}"
+                                         style="height: 180px">
+                                    <p class="item-price">{{ item.price }} лв.</p>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ item.name }}</h5>
+                                    <a href="{% url 'user_view' item.user.id %}" class="user-link">
+                                        <span>Потребител:</span>
+                                        <span>{{ item.user }}</span>
+                                    </a>
+                                    <a href="{% url 'offer' item.id %}" class="btn btn-warning">Детайли</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="header" style="text-align: center; margin-top: 15px;">
+            <h2>Не сте влязъл в системата</h2>
+            <a class="btn btn-warning btn-lg"
+               href="{% url 'login' %}"
+               role="button"
+               style="margin-top: 15px">Вход</a>
+            <a class="btn btn-outline-warning btn-lg"
+               href="{% url 'register' %}"
+               role="button"
+               style="margin-top: 15px">Регистрирай се сега</a>
+        </div>
+    {% endif %}
+{% endblock %}
