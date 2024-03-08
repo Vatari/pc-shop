@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <title>
+        {% block title %}
+            Base
+        {% endblock title %}
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+            crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Your+Chosen+Font&display=swap"
+          rel="stylesheet">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+          crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary"
+     style="font-size: 1.8rem">
+    <div class="container-fluid">
+        <a class="navbar-brand"
+           href="/"
+           style="color: orange;
+                          font-size: 1.8rem;
+                          padding-left: 50px">Магазин за компютри</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <form class="d-flex me-auto"
+              method="POST"
+              action="{% url 'search_results' %}"
+              role="search"
+              style="margin-top: 10px;
+                             margin-left: 25px">
+            {% csrf_token %}
+            <input class="form-control me-2"
+                   type="search"
+                   placeholder="Търси"
+                   aria-label="Search"
+                   name="searched"
+                   style="width: 355px">
+            <button class="btn btn-warning" type="submit" style="width: 85px;">Търси</button>
+        </form>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll"
+                style="--bs-scroll-height: 100px">
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'cart' %}" style="padding-right: 25px;">
+                            Количка
+                            <span class="badge bg-warning"
+                                  style="border-radius: 50%; color: black;">{{ cart_item_count }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown" style="padding-right: 65px;">
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">{{ request.user }}</a>
+                        <ul class="dropdown-menu" style="text-align: center;">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'user_view' request.user.id %}">Моите обяви</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'add' %}">Добави обява</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'logout' %}" style="color: orange;">Изход</a>
+                            </li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'login' %}" style="margin-right: 10px;">Вход</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'register' %}">Регистрирай се сега➔</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<hr class="navbar-divider">
+<nav class="navbar navbar-expand-lg bg-body-tertiary"
+     style="font-size: large;
+                    padding-left: 45px;
+                    padding-bottom: 10px">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            {% if user.is_authenticated %}
+                <ul class="navbar-nav my-2 my-lg-0 navbar-nav-scroll"
+                    style="--bs-scroll-height: 100px">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">Категории</a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'desktop_computers' %}">Настолни компютри</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'laptops' %}">Лаптопи</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'servers' %}">Сървъри</a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'parts' %}">Периферия</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            {% endif %}
+        </div>
+        <a id="theme-toggle" href="#" class="nav-link" style="margin-right:10px"><i id="theme-icon"
+                                                                                    class="bi bi-moon"></i> Тема</a>
+    </div>
+</nav>
+{% block content %}{% endblock %}
+<script src="{% static 'js/base.js' %}"></script>
+</body>
+</html>
