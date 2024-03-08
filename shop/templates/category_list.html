@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}
+    Категории
+{% endblock title %}
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/category-list.css' %}">
+    {% if user.is_authenticated %}
+        <div class="category-list">
+            <h1>Избери категория</h1>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="{% url 'desktop_computers' %}">Настолни компютри</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{% url 'laptops' %}">Лаптопи</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{% url 'servers' %}">Сървъри</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="{% url 'parts' %}">Периферия</a>
+                </li>
+            </ul>
+        </div>
+    {% else %}
+        <div class="header" style="text-align: center; margin-top: 15px;">
+            <h2>Трябва сте регистриран</h2>
+            <a class="btn btn-warning btn-lg"
+               href="{% url 'login' %}"
+               role="button"
+               style="margin-top: 15px">Вход</a>
+            <a class="btn btn-outline-warning btn-lg"
+               href="{% url 'register' %}"
+               role="button"
+               style="margin-top: 15px">Регистрирай се сега</a>
+        </div>
+    {% endif %}
+{% endblock %}
