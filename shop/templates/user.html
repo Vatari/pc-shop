@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}{{ user.username }} Профил{% endblock %}
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+    <div class="profile-container">
+        <div class="profile-header">
+            {% if user == request.user %}
+                <h1 class="display-5">Моите обяви</h1>
+            {% else %}
+                <h1 class="display-5">Обави на {{ user.username }}</h1>
+            {% endif %}
+        </div>
+        {% if items|length == 0 %}<h4 style="text-align: center; margin-top: 40px;">Нямате обяви!</h4>{% endif %}
+        <div class="offers-section">
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                {% for item in items %}
+                    <div class="col">
+                        <div class="card shadow-sm">
+                            <div class="card-img-container">
+                                <img src="{{ item.image.url }}"
+                                     class="card-img-top"
+                                     alt="{{ item.name }}"
+                                     style="height: 180px">
+                                <p class="item-price">${{ item.price }}</p>
+                                {% if item.user == request.user %}
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        <button class="btn btn-danger remove-button"
+                                                name="{{ item.id }}_remove"
+                                                style="color: black">Премахни обява
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.name }}</h5>
+                                <p class="card-text item-description">Потребител: {{ user.username }}</p>
+                                {% if item.user == request.user %}
+                                    <a href="{% url 'offer' item.id %}/edit"
+                                       class="btn btn-outline-warning">Редактирай</a>
+                                    <a href="{% url 'offer' item.id %}" class="btn btn-warning">Детайли</a>
+                                {% else %}
+                                    <a href="{% url 'offer' item.id %}" class="btn btn-warning">Детайли</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
