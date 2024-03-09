@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Резултати{% endblock %}
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/search_results.css' %}">
+    {% if user.is_authenticated %}
+        <div class="header" style="text-align: center; margin-top: 10px;">
+            {% if searched %}
+                <h1>
+                    Резултати за <u>{{ searched }}</u>
+                </h1>
+                </div>
+                {% if items_list|length == 0 %}
+                    <h5 style="margin-top: 33px; text-align: center;">
+                        Няма резултати, разгледай други <a href="{% url 'category_list' %}">категории</a>
+                    </h5>
+                {% else %}
+                    <div class="row row-cols-1 row-cols-md-4 g-4">
+                    {% for item in items_list %}
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <div class="card-img-container">
+                                    <img src="{{ item.image.url }}"
+                                         class="card-img-top"
+                                         alt="{{ item.name }}"
+                                         style="height: 180px">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ item.name }}</h5>
+                                    <p class="card-text item-price">{{ item.price }} лв.</p>
+                                    <a href="{% url 'user_view' item.user.id %}" class="user-link">
+                                        <span>Потребител:</span>
+                                        <span>{{ item.user }}</span>
+                                    </a>
+                                    <a href="{% url 'offer' item.id %}" class="btn btn-warning">Детайли</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% else %}
+            <h1>Не сте задали критерии за търсене...</h1>
+            </div>
+            {% endif %}
+    {% else %}
+        <div class="header" style="text-align: center; margin-top: 120px;">
+            <h2>Не сте влязъл в системата</h2>
+            <a class="btn btn-warning btn-lg"
+               href="{% url 'login' %}"
+               role="button"
+               style="margin-top: 80px">Вход</a>
+            <a class="btn btn-outline-warning btn-lg"
+               href="{% url 'register' %}"
+               role="button"
+               style="margin-top: 80px">Регистрирай се сега</a>
+        </div>
+    {% endif %}
+{% endblock %}
