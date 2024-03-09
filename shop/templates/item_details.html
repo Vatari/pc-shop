@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}
+    {{ item.name }} - Магазин за компютри
+{% endblock title %}
+{% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/item-details.css' %}">
+    {% if user.is_authenticated %}
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="item-details">
+                        <div class="item-name-bg">
+                            <h1 class="item-name">{{ item.name }}</h1>
+                        </div>
+                        <img src="{{ item.image.url }}" alt="Item Image" class="item-image">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="item-info">
+                        <div class="company-name">
+                            <a href="{% url 'user_view' item.user.id %}"
+                               class="card-text item-description">Потребител: {{ item.user }}</a>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="item-price">{{ item.price }} лв.</div>
+                        <div class="divider"></div>
+                        <form method="post">
+                            {% csrf_token %}
+                            {% if not item.user == request.user %}
+                                <div class="buttons">
+                                    <button class="btn btn-warning" name="add">Добави в количката</button>
+                                    <button class="btn btn-outline-warning" name="buy">Купи сега</button>
+                                </div>
+                            {% else %}
+                                <div class="buttons">
+                                    <button class="btn btn-warning" name="edit">Редактирай обява</button>
+                                </div>
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="item-description-bg">
+                        <h3>Описание:</h3>
+                        <p>{{ item.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="header" style="text-align: center; margin-top: 15px;">
+            <h2>Не сте влязъл в системата</h2>
+            <a class="btn btn-warning btn-lg"
+               href="{% url 'login' %}"
+               role="button"
+               style="margin-top: 15px">Вход</a>
+            <a class="btn btn-outline-warning btn-lg"
+               href="{% url 'register' %}"
+               role="button"
+               style="margin-top: 15px">Регистрирай се сега</a>
+        </div>
+    {% endif %}
+{% endblock %}
