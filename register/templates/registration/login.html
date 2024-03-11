@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Вход{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="d-flex justify-content-center align-items-center">
+        <form method="POST" class="form-group" style="width: 40%; margin-top: 15px">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div style="font-size: medium; margin-top: 5px;">
+                Нямаш акаунт? <a href="/register/">Регистрирай се тук.</a>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-secondary" name="login">Вход</button>
+        </form>
+    </div>
+{% endblock %}
