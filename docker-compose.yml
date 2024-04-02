@@ -2,6 +2,6 @@ name: pc-shop
 services:
     pc-shop:
         ports:
-            - 7061:80
+            - 8000:80
         container_name: pc-shop
         image: pc-shop

@@ -21,8 +21,8 @@ SECRET_KEY = "django-insecure-*v55srtwc%al(f)x7z-g+%qk8!*8k9zaw@=1wkswi5q8lh+_6g
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["10.10.101.22", "127.0.0.1", "localhost", 'shop.vetari.eu']
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:7061', 'http://10.10.101.22:7061', 'https://shop.vetari.eu', 'http://localhost:7061']
+ALLOWED_HOSTS = ["10.10.101.22", '10.1.77.7', "127.0.0.1", "localhost", 'shop.vetari.eu']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://10.1.77.7:8000', 'http://10.10.101.22:8000', 'https://shop.vetari.eu', 'http://localhost:8000']
 
 
 INSTALLED_APPS = [
