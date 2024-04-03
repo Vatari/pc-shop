@@ -8,15 +8,12 @@ from .forms import NewOfferForm, EditOfferForm
 from .models import Item, Cart, CartItem
 
 
-# Create your views here.
-
-
 def index(request):
-    return render(request, "index.html")
+    return render(request, "shop/index.html")
 
 
 def error404(request):
-    return render(request, "error.html")
+    return render(request, "shop/error.html")
 
 
 def category(request, category):
@@ -27,7 +24,7 @@ def category(request, category):
 
     return render(
         request,
-        "category.html",
+        "shop/category.html",
         {
             "category": category,
             "desktop_computers_items": desktop_computers_items,
@@ -63,7 +60,7 @@ def add_offer(request):
             return redirect(f"/offer/{item.id}")
         else:
             form = NewOfferForm()
-    return render(request, "add_offer.html", {"form": form})
+    return render(request, "shop/add_offer.html", {"form": form})
 
 
 def edit_offer(request, id):
@@ -104,7 +101,7 @@ def edit_offer(request, id):
         else:
             form = EditOfferForm(item=item)
 
-    return render(request, "edit_offer.html", {"item": item, "form": form})
+    return render(request, "shop/edit_offer.html", {"item": item, "form": form})
 
 
 def view(request, id):
@@ -133,7 +130,7 @@ def view(request, id):
     if request.method == "POST" and "edit" in request.POST:
         return redirect(f"/offer/{id}/edit")
 
-    return render(request, "item_details.html", {"item": item})
+    return render(request, "shop/item_details.html", {"item": item})
 
 
 @login_required
@@ -179,7 +176,7 @@ def cart(request):
                     cart.save()
                     return redirect("/cart/")
 
-    return render(request, "cart.html", {"cart": cart, "cart_items": cart_items})
+    return render(request, "shop/cart.html", {"cart": cart, "cart_items": cart_items})
 
 
 def user_view(request, id):
@@ -198,7 +195,7 @@ def user_view(request, id):
         if request.user.is_authenticated:
             return render(
                 request,
-                "user.html",
+                "../templates/shop/user.html",
                 {"user": user, "current_user": current_user, "items": items},
             )
         else:
@@ -209,7 +206,7 @@ def user_view(request, id):
 
 
 def category_list(request):
-    return render(request, "category_list.html")
+    return render(request, "shop/category_list.html")
 
 
 def search_results(request):
@@ -222,8 +219,8 @@ def search_results(request):
                 items_list.append(item)
         return render(
             request,
-            "search_results.html",
+            "shop/search_results.html",
             {"searched": searched, "items_list": items_list},
         )
     else:
-        return render(request, "search_results.html")
+        return render(request, "shop/search_results.html")

@@ -19,17 +19,18 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from register import views as v
+from shop.accounts import views as v
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("shop.urls")),
-    path("register/", v.register, name="register"),
-    path("", include("django.contrib.auth.urls")),
-]
+    path("accounts/", include("shop.accounts.urls")),
+#    path("", include("django.contrib.auth.urls")),
+] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

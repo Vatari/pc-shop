@@ -18,12 +18,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "django-insecure-*v55srtwc%al(f)x7z-g+%qk8!*8k9zaw@=1wkswi5q8lh+_6g"
 
-
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["10.10.101.22", '10.1.77.7', "127.0.0.1", "localhost", 'shop.vetari.eu']
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://10.1.77.7:8000', 'http://10.10.101.22:8000', 'https://shop.vetari.eu', 'http://localhost:8000']
-
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://10.1.77.7:8000', 'http://10.10.101.22:8000',
+                        'https://shop.vetari.eu', 'http://localhost:8000']
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -35,7 +34,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap4",
     "shop.apps.ShopConfig",
-    "register.apps.RegisterConfig",
+    "shop.accounts",
 ]
 
 MIDDLEWARE = [
@@ -54,7 +53,7 @@ ROOT_URLCONF = "main.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -69,7 +68,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "main.wsgi.application"
-
 
 DATABASES = {
     # SQLite
@@ -95,7 +93,6 @@ DATABASES = {
     }
 }
 
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -111,7 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -120,22 +116,17 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-STATIC_URL = "static/"
-
+STATIC_URL = '/static/'
 
 if DEBUG:
     STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static_files')
+        BASE_DIR / 'staticfiles',
     ]
 else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "static_files/media")
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+MEDIA_ROOT = os.path.join(BASE_DIR, "staticfiles/media")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
