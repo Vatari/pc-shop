@@ -7,18 +7,8 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth import views as auth_views, get_user_model, forms as auth_forms
 from shop.accounts.forms import CreateUserForm
 
-# `authenticate(request, **credentials)` -> returns the user if credentials match
-# `login(request, user)` -> attaches a cookie for the authenticated user
-
-# The correct way to get the `User` class
 UserModel = get_user_model()
 
-
-# UserModel(...).save()
-# UserModel.objects.create(...)
-
-
-# `doncho4` -> 'pbkdf2_sha256$600000$ovLVt6LZPeU5BiU2HrzPHw$Cn8dXWbgMrQIkYimRQY4AgzyqqrOODHAubtAb7tPUNY='
 
 class LoginUserView(auth_views.LoginView):
     template_name = "accounts/login.html"

@@ -82,7 +82,8 @@ def edit_offer(request, id):
                 category = NewOfferForm.CATEGORIES[int(categ_num) - 1][1]
                 item.category = category
 
-            """Don't change value if user didn't change it in edit window"""
+            """Да не променям стойноста, ако потребителя не я е сменил в edit прозореца."""
+
             if len(name) >= 1:
                 item.name = name
             else:
