@@ -1,11 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+from django.utils import timezone
 
-# Create your models here.
+
+UserModel = get_user_model()
 
 
 class Item(models.Model):
-    user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
+    user = models.OneToOneField(UserModel, on_delete=models.CASCADE, default=timezone.now)
     name = models.CharField(max_length=50, default="")
     description = models.TextField(default="")
     price = models.FloatField(null=True, blank=True)
@@ -17,7 +20,7 @@ class Item(models.Model):
 
 
 class Cart(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(UserModel, on_delete=models.CASCADE, default=timezone.now)
     total = models.FloatField()
     quantity = models.IntegerField()
 
@@ -28,4 +31,4 @@ class CartItem(models.Model):
     quantity = models.IntegerField(default=1)
     image = models.ImageField(upload_to="item_images/")
     price = models.FloatField()
-    user = models.ForeignKey(User, default=1, null=True, on_delete=models.SET_NULL)
+    user = models.ForeignKey(UserModel, default=1, null=True, on_delete=models.SET_NULL)
