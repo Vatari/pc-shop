@@ -180,11 +180,12 @@ def cart(request):
     return render(request, "shop/cart.html", {"cart": cart, "cart_items": cart_items})
 
 
+@login_required  # Decorator to ensure user is logged in
 def user_view(request, id):
     current_user = request.user
 
     try:
-        user = User.objects.get(id=id)
+        user = current_user  # Assuming you're fetching the current user, so no need to query again
         items = Item.objects.filter(user=user)
 
         if request.method == "POST":
@@ -193,17 +194,15 @@ def user_view(request, id):
                     item.delete()
                     return redirect(f"/user/{user.id}")
 
-        if request.user.is_authenticated:
-            return render(
-                request,
-                "../templates/shop/user.html",
-                {"user": user, "current_user": current_user, "items": items},
-            )
-        else:
-            return redirect("/404/")
+        return render(
+            request,
+            "shop/user.html",
+            {"user": user, "current_user": current_user, "items": items},
+        )
 
     except ObjectDoesNotExist:
         raise Http404
+
 
 
 def category_list(request):

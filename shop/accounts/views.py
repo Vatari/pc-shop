@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import redirect_to_login
 from django.views import generic as views
+from django.contrib.auth import login
 from django.contrib.auth.views import LogoutView
 from django.urls import reverse, reverse_lazy
 
@@ -19,9 +20,18 @@ class LoginUserView(auth_views.LoginView):
 
 
 class RegisterUserView(views.CreateView):
-    form_class = CreateUserForm
-    template_name = "accounts/register.html"
-    success_url = reverse_lazy("index")
+    form_class = CreateUserForm  # Your custom user creation form
+    template_name = "accounts/register.html"  # Template for registration form
+    success_url = reverse_lazy("index")  # URL to redirect after successful registration
+
+    def form_valid(self, form):
+        """
+        If the form is valid, save the associated model.
+        Additionally, log in the user after registration.
+        """
+        response = super().form_valid(form)
+        login(self.request, self.object)  # Log in the user after successful registration
+        return response
 
 
 # class LoginUserView(views.View):
