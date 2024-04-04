@@ -28,7 +28,7 @@ class CustomUser(AbstractBaseUser):
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)  # Define is_staff field
 
     objects = CustomUserManager()
 
