@@ -18,7 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = "django-insecure-*v55srtwc%al(f)x7z-g+%qk8!*8k9zaw@=1wkswi5q8lh+_6g"
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["10.10.101.22", '10.1.77.7', "127.0.0.1", "localhost", 'shop.vetari.eu']
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000', 'http://10.1.77.7:8000', 'http://10.10.101.22:8000',
@@ -122,11 +122,14 @@ if DEBUG:
     STATICFILES_DIRS = [
         BASE_DIR / 'staticfiles',
     ]
+    MEDIA_ROOT = os.path.join(BASE_DIR, "staticfiles/media")
+
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    MEDIA_ROOT = os.path.join(BASE_DIR, "staticfiles/media/item_images")
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "staticfiles/media/item_images")
+
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = 'accounts.CustomUser'
