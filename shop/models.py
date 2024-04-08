@@ -7,17 +7,33 @@ from django.utils import timezone
 UserModel = get_user_model()
 
 
+# class Item(models.Model):
+#     user = models.OneToOneField(UserModel, on_delete=models.CASCADE, default=timezone.now)
+#     name = models.CharField(max_length=50, default="")
+#     description = models.TextField(default="")
+#     price = models.FloatField(null=True, blank=True)
+#     category = models.TextField(default="")
+#     image = models.ImageField(upload_to="item_images/")
+#
+#     class Meta:
+#         unique_together = ('user', 'name')
+#
+#     def __str__(self):
+#         return self.name
+
 class Item(models.Model):
-    user = models.OneToOneField(UserModel, on_delete=models.CASCADE, default=timezone.now)
+    user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, default="")
     description = models.TextField(default="")
     price = models.FloatField(null=True, blank=True)
     category = models.TextField(default="")
     image = models.ImageField(upload_to="item_images/")
 
+    class Meta:
+        unique_together = ('user', 'name')
+
     def __str__(self):
         return self.name
-
 
 class Cart(models.Model):
     user = models.OneToOneField(UserModel, on_delete=models.CASCADE, default=timezone.now)
