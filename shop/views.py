@@ -55,7 +55,6 @@ def add_offer(request):
                 category=category,
                 image=image,
             )
-            print(item.image.url)
             item.save()
             return redirect(f"/offer/{item.id}")
         else:
