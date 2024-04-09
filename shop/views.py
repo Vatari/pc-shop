@@ -184,7 +184,7 @@ def user_view(request, id):
     current_user = request.user
 
     try:
-        user = current_user  # Assuming you're fetching the current user, so no need to query again
+        user = current_user
         items = Item.objects.filter(user=user)
 
         if request.method == "POST":
